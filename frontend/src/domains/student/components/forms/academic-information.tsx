@@ -94,15 +94,26 @@ export const AcademicInformation = () => {
             )}
           />
         </FormControl>
-        <Box>
-          <TextField
-            {...register('roll')}
-            error={Boolean(errors.roll)}
-            helperText={errors.roll?.message}
-            label='Roll'
-            size='small'
-            slotProps={{ inputLabel: { shrink: true } }}
-          />
+          <Box>
+            <Controller
+              name="roll"
+              control={control}
+              rules={{
+                validate: (value) => (Number.isInteger(value) ? true : "Please enter a valid integer"),
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  error={Boolean(error)}
+                  helperText={error?.message}
+                  label='Roll'
+                  size='small'
+                  type="number"
+                  inputProps={{ step: 1 }}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                />
+              )}
+            />
         </Box>
         <Box>
           <Controller
